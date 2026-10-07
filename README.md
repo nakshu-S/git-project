@@ -1,21 +1,39 @@
 # git-project
+# Cloud Native CI/CD Pipeline
 
-1. UI Design (Dashboard Project Tile)
-A Project Tile is a visual box on a dashboard displaying summary information for a project:
+## Project Name
+Cloud Native CI/CD Pipeline
 
-Title & Category: Project name and status tag (e.g., Active, Done).
+## Project Description
+This project demonstrates a simple CI/CD pipeline using GitHub Actions and OpenShift.
 
-Progress: Percentage bar or completed task count.
+## Technologies Used
+- GitHub
+- GitHub Actions
+- Node.js
+- Jest
+- ESLint
+- OpenShift
+- Tekton Pipelines
 
-Team: Member avatars or project owner name.
+## Project Features
+- Source code management using GitHub
+- Automated testing using Jest
+- Code linting using ESLint
+- Application build
+- Container image build
+- OpenShift deployment
+- CI/CD pipeline automation
 
-Dates: Target deadline or start date.
+## CI/CD Pipeline
+The pipeline performs the following steps:
 
-2. Construction (Flooring/Wall Tiles)
-In building projects, Project Tiles refer to selected tiling materials based on usage:
+1. Cleanup
+2. Git Clone
+3. Linting
+4. Unit Testing
+5. Buildah
+6. OpenShift Deployment
 
-Ceramic: Budget-friendly, best for kitchen backsplashes and low-traffic walls.
-
-Porcelain: Heavy-duty, water-resistant, ideal for outdoor and high-traffic floors.
-
-Vitrified: Stain-resistant, polished finish, commonly used for indoor home or office floors.
+## Author
+Nakshathra S
