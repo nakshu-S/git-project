@@ -1,114 +1,37 @@
-class CircularQueue {
+name: CI/CD Pipeline
 
-    int[] queue;
-    int front, rear, size;
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
-    CircularQueue(int size) {
-        this.size = size;
-        queue = new int[size];
-        front = -1;
-        rear = -1;
-    }
+jobs:
+  build-test-lint:
+    runs-on: ubuntu-latest
 
-    // Insert element
-    void enqueue(int value) {
-        if ((rear + 1) % size == front) {
-            System.out.println("Queue is Full");
-            return;
-        }
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-        if (front == -1) {
-            front = 0;
-        }
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
-        rear = (rear + 1) % size;
-        queue[rear] = value;
+      - name: Install dependencies
+        run: npm install
 
-        System.out.println(value + " inserted");
-    }
+      - name: Run tests with Jest
+        run: npm test
 
-    // Delete element
-    void dequeue() {
-        if (front == -1) {
-            System.out.println("Queue is Empty");
-            return;
-        }
+      - name: Lint with ESLint
+        run: npm run lint
 
-        System.out.println(queue[front] + " deleted");
+      - name: Build application
+        run: npm run build
 
-        if (front == rear) {
-            front = -1;
-            rear = -1;
-        } else {
-            front = (front + 1) % size;
-        }
-    }
-
-    // View front element
-    void peek() {
-        if (front == -1) {
-            System.out.println("Queue is Empty");
-        } else {
-            System.out.println("Front element: " + queue[front]);
-        }
-    }
-
-    // Display queue
-    void display() {
-        if (front == -1) {
-            System.out.println("Queue is Empty");
-            return;
-        }
-
-        System.out.print("Circular Queue: ");
-
-        int i = front;
-
-        while (true) {
-            System.out.print(queue[i] + " ");
-
-            if (i == rear) {
-                break;
-            }
-
-            i = (i + 1) % size;
-        }
-
-        System.out.println();
-    }
-
-    // Check empty
-    boolean isEmpty() {
-        return front == -1;
-    }
-
-    // Check full
-    boolean isFull() {
-        return (rear + 1) % size == front;
-    }
-
-    public static void main(String[] args) {
-
-        CircularQueue cq = new CircularQueue(5);
-
-        cq.enqueue(10);
-        cq.enqueue(20);
-        cq.enqueue(30);
-        cq.enqueue(40);
-        cq.enqueue(50);
-
-        cq.display();
-
-        cq.dequeue();
-        cq.dequeue();
-
-        cq.display();
-
-        cq.enqueue(60);
-        cq.enqueue(70);
-
-        cq.display();
-
-        cq.peek();
-    }
-}
+      - name: Workflow completed successfully
+        run: echo "CI/CD workflow completed successfully"
